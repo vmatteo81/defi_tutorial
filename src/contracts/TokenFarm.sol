@@ -1,24 +1,38 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "./DappToken.sol";
-import "./DaiToken.sol";
+import "./ReCryptoToken.sol";
+import "./UsdcToken.sol";
 
 contract TokenFarm {
     string public name = "Dapp Token Farm";
     address public owner;
-    DappToken public dappToken;
-    DaiToken public daiToken;
+    ReCryptoToken public ReCryptoToken;
+    UsdcToken public UsdcToken;
+
+    uint public maxSupply = 500000000000000000000000; //numero dei token disponibili sul mercato
 
     address[] public stakers;
     mapping(address => uint) public stakingBalance;
     mapping(address => bool) public hasStaked;
     mapping(address => bool) public isStaking;
 
-    constructor(DappToken _dappToken, DaiToken _daiToken) public {
-        dappToken = _dappToken;
-        daiToken = _daiToken;
+    constructor(ReCryptoToken _ReCryptoToken, UsdcToken _UsdcToken) {
+        ReCryptoToken = _ReCryptoToken;
+        UsdcToken = _UsdcToken;
         owner = msg.sender;
+    }
+    modifier isOwner() {
+        require(msg.sender == owner, "Caller is not owner");
+        _;
+    }
+
+    function addSupply(uint _amount) public isOwner {
+        maxSupply = maxSupply + _amount;
+    }
+
+    function changeSupply(uint _amount) public isOwner {
+        maxSupply = _amount;
     }
 
     function stakeTokens(uint _amount) public {
@@ -26,7 +40,7 @@ contract TokenFarm {
         require(_amount > 0, "amount cannot be 0");
 
         // Trasnfer Mock Dai tokens to this contract for staking
-        daiToken.transferFrom(msg.sender, address(this), _amount);
+        UsdcToken.transferFrom(msg.sender, address(this), _amount);
 
         // Update staking balance
         stakingBalance[msg.sender] = stakingBalance[msg.sender] + _amount;
@@ -50,7 +64,7 @@ contract TokenFarm {
         require(balance > 0, "staking balance cannot be 0");
 
         // Transfer Mock Dai tokens to this contract for staking
-        daiToken.transfer(msg.sender, balance);
+        UsdcToken.transfer(msg.sender, balance);
 
         // Reset staking balance
         stakingBalance[msg.sender] = 0;
@@ -69,7 +83,7 @@ contract TokenFarm {
             address recipient = stakers[i];
             uint balance = stakingBalance[recipient];
             if(balance > 0) {
-                dappToken.transfer(recipient, balance);
+                ReCryptoToken.transfer(recipient, balance);
             }
         }
     }

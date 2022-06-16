@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-contract DappToken {
-    string  public name = "DApp Token";
-    string  public symbol = "DAPP";
+contract UsdcToken {
+    string  public name = "Mock Usdc Token";
+    string  public symbol = "mUsdc";
     uint256 public totalSupply = 1000000000000000000000000; // 1 million tokens
     uint8   public decimals = 18;
 

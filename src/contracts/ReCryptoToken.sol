@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-contract DaiToken {
-    string  public name = "Mock DAI Token";
-    string  public symbol = "mDAI";
-    uint256 public totalSupply = 1000000000000000000000000; // 1 million tokens
+contract ReCryptoToken {
+    string  public name = "ReCrypto Token";
+    string  public symbol = "RECRY";
+    uint256 public totalSupply = 999999999999999999999999999999999; // 1 million tokens
     uint8   public decimals = 18;
 
     event Transfer(
