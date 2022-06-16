@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.15;
+pragma solidity ^0.8.4;
 
 contract DaiToken {
     string  public name = "Mock DAI Token";
