@@ -16,7 +16,7 @@ module.exports = async function(deployer, network, accounts) {
   const recryUsdcSwap = await RecryUsdcSwap.deployed()
 
   // Transfer all tokens to RecryUsdcSwap (1 million)
-  await recryToken.transfer(recryUsdcSwap.address, recryUsdcSwap.maxSupply)
+  await recryToken.transfer(recryUsdcSwap.address, '500000000000000000000000')
 
   // Transfer 1000 Mock Usdc tokens to investors
   await usdcToken.transfer(accounts[1], '1000000000000000000000')

@@ -10,14 +10,20 @@ class Main extends Component {
         <table className="table table-borderless text-muted text-center">
           <thead>
             <tr>
-              <th scope="col">Staking Balance</th>
-              <th scope="col">Reward Balance</th>
+              <th scope="col">Token Balance</th>
+              <th scope="col">Token Price</th>
+              <th scope="col">Total Balance</th>
+              <th scope="col">Max Supply</th>
+              <th scope="col">Current Available</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>{window.web3.utils.fromWei(this.props.stakingBalance, 'Ether')} mDAI</td>
-              <td>{window.web3.utils.fromWei(this.props.dappTokenBalance, 'Ether')} DAPP</td>
+              <td>{window.web3.utils.fromWei(this.props.recryTokenBalance, 'Ether')} Recry</td>
+              <td>{window.web3.utils.fromWei(this.props.recryPrice, 'Ether')} $</td>
+              <td>{window.web3.utils.fromWei(window.web3.utils.toBN(this.props.recryTokenBalance).mul(window.web3.utils.toBN(this.props.recryPrice)).toString(), 'Ether')} $</td>
+              <td>{window.web3.utils.fromWei(this.props.recryMaxSupply, 'Ether')} $</td>
+              <td>{window.web3.utils.fromWei(this.props.recryMaxAvailable, 'Ether')} $</td>
             </tr>
           </tbody>
         </table>
@@ -36,7 +42,7 @@ class Main extends Component {
               <div>
                 <label className="float-left"><b>Stake Tokens</b></label>
                 <span className="float-right text-muted">
-                  Balance: {window.web3.utils.fromWei(this.props.daiTokenBalance, 'Ether')}
+                  Balance: {window.web3.utils.fromWei(this.props.usdcTokenBalance, 'Ether')}
                 </span>
               </div>
               <div className="input-group mb-4">
@@ -49,7 +55,7 @@ class Main extends Component {
                 <div className="input-group-append">
                   <div className="input-group-text">
                     <img src={dai} height='32' alt=""/>
-                    &nbsp;&nbsp;&nbsp; mDAI
+                    &nbsp;&nbsp;&nbsp; Usdc
                   </div>
                 </div>
               </div>

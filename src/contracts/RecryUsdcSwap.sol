@@ -13,7 +13,6 @@ contract RecryUsdcSwap {
     uint public protocolGain = 0; //protocol gain
 
     address[] public buyers;
-    mapping(address => uint) public buyBalance;
     mapping(address => bool) public hasPurchased;
     mapping(address => bool) public isPurchased;
 
@@ -44,7 +43,12 @@ contract RecryUsdcSwap {
     {
             return maxSupply;
     }
-    
+
+    function getMaxAvailable() public view returns(uint _value)
+    {
+            return recry.balanceOf(address(this));
+    }
+
     function getProtocolGain() public view returns(uint _value)
     {
             return protocolGain;
@@ -54,15 +58,12 @@ contract RecryUsdcSwap {
         // Require amount greater than 0
         uint qtyToBuy = _amount / getRecryValue();
         require(_amount > 0, "amount cannot be 0");
-        require(maxSupply < qtyToBuy, "no enough recry to buy");
+        require(recry.balanceOf(address(this)) >= qtyToBuy , "no enough recry to buy");
 
         // Trasnfer usdc to the owner not in the protocol
-        usdc.transferFrom(msg.sender, owner, _amount);
+        require(usdc.transferFrom(msg.sender, owner, _amount));
         // Trasnfer recry to the buyer
-        recry.transferFrom(address(this), msg.sender, _amount);
-
-        // Update buy balance
-        buyBalance[msg.sender] = buyBalance[msg.sender] + qtyToBuy;
+        recry.transferFrom(address(this), msg.sender, _amount);        
 
         // Add user to buyers array *only* if they haven't buyed already
         if(!hasPurchased[msg.sender]) {

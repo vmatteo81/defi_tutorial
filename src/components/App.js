@@ -44,13 +44,18 @@ class App extends Component {
       window.alert('ReCryptoToken contract not deployed to detected network.')
     }
 
+
     // Load RecryUsdcSwap
     const recryUsdcSwapData = RecryUsdcSwap.networks[networkId]
     if(recryUsdcSwapData) {
       const recryUsdcSwap = new web3.eth.Contract(RecryUsdcSwap.abi, recryUsdcSwapData.address)
       this.setState({ recryUsdcSwap })
-      let stakingBalance = await recryUsdcSwap.methods.stakingBalance(this.state.account).call()
-      this.setState({ stakingBalance: stakingBalance.toString() })
+      let recryPrice = await recryUsdcSwap.methods.getRecryValue().call()
+      this.setState({ recryPrice: recryPrice.toString() })
+      let recryMaxSupply = await recryUsdcSwap.methods.getMaxSupply().call()
+      this.setState({ recryPrice: recryPrice.toString() })
+      let recryMaxAvailable = await recryUsdcSwap.methods.getMaxAvailable().call()
+      this.setState({ recryPrice: recryPrice.toString() })
     } else {
       window.alert('RecryUsdcSwap contract not deployed to detected network.')
     }
@@ -96,7 +101,10 @@ class App extends Component {
       recryUsdcSwap: {},
       usdcTokenBalance: '0',
       recryTokenBalance: '0',
-      stakingBalance: '0',
+      recryPrice: '0',
+      recryTotal: '0',
+      recryMaxSupply: '0',
+      recryMaxAvailable: '0',
       loading: true
     }
   }
@@ -109,7 +117,10 @@ class App extends Component {
       content = <Main
         usdcTokenBalance={this.state.usdcTokenBalance}
         recryTokenBalance={this.state.recryTokenBalance}
-        stakingBalance={this.state.stakingBalance}
+        recryPrice={this.state.recryPrice}
+        recryTotal={this.state.recryPrice*this.state.recryTokenBalance}
+        recryMaxSupply = {this.state.recryMaxSupply}
+        recryMaxAvailable = {this.state.recryMaxAvailable}
         stakeTokens={this.stakeTokens}
         unstakeTokens={this.unstakeTokens}
       />
