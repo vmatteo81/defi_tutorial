@@ -4,7 +4,7 @@ pragma solidity ^0.8.4;
 contract ReCryptoToken {
     string  public name = "ReCrypto Token";
     string  public symbol = "RECRY";
-    uint256 public totalSupply = 999999999999999999999999999999999; // 1 million tokens
+    uint256 public totalSupply = 9999999999999999999999999999999999; // 999 trillion tokens
     uint8   public decimals = 18;
 
     event Transfer(
