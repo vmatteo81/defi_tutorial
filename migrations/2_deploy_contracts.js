@@ -1,23 +1,24 @@
-const DappToken = artifacts.require('DappToken')
-const DaiToken = artifacts.require('DaiToken')
-const TokenFarm = artifacts.require('TokenFarm')
+const RecryptoToken = artifacts.require('RecryptoToken')
+const UsdcToken = artifacts.require('UsdcToken')
+const RecryUsdcSwap = artifacts.require('RecryUsdcSwap')
 
 module.exports = async function(deployer, network, accounts) {
   // Deploy Mock DAI Token
-  await deployer.deploy(DaiToken)
-  const daiToken = await DaiToken.deployed()
+  await deployer.deploy(UsdcToken)
+  const usdcToken = await UsdcToken.deployed()
 
   // Deploy Dapp Token
-  await deployer.deploy(DappToken)
-  const dappToken = await DappToken.deployed()
+  await deployer.deploy(RecryptoToken)
+  const recryToken = await RecryptoToken.deployed()
 
-  // Deploy TokenFarm
-  await deployer.deploy(TokenFarm, dappToken.address, daiToken.address)
-  const tokenFarm = await TokenFarm.deployed()
+  // Deploy RecryUsdcSwap
+  await deployer.deploy(RecryUsdcSwap, recryToken.address, usdcToken.address)
+  const recryUsdcSwap = await RecryUsdcSwap.deployed()
 
-  // Transfer all tokens to TokenFarm (1 million)
-  await dappToken.transfer(tokenFarm.address, '1000000000000000000000000')
+  // Transfer all tokens to RecryUsdcSwap (1 million)
+  await recryToken.transfer(recryUsdcSwap.address, recryUsdcSwap.maxSupply)
 
-  // Transfer 100 Mock DAI tokens to investor
-  await daiToken.transfer(accounts[1], '100000000000000000000')
+  // Transfer 1000 Mock Usdc tokens to investors
+  await usdcToken.transfer(accounts[1], '1000000000000000000000')
+  await usdcToken.transfer(accounts[2], '1000000000000000000000')
 }
