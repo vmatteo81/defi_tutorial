@@ -21,7 +21,7 @@ class Main extends Component {
             <tr>
               <td>{window.web3.utils.fromWei(this.props.recryTokenBalance, 'Ether')} Recry</td>
               <td>{window.web3.utils.fromWei(this.props.recryPrice, 'Ether')} $</td>
-              <td>{window.web3.utils.fromWei(window.web3.utils.toBN(this.props.recryTokenBalance).mul(window.web3.utils.toBN(this.props.recryPrice)).toString(), 'Ether')} $</td>
+              <td>{window.web3.utils.fromWei(this.props.recryTotal, 'Ether')} $</td>
               <td>{window.web3.utils.fromWei(this.props.recryMaxSupply, 'Ether')} $</td>
               <td>{window.web3.utils.fromWei(this.props.recryMaxAvailable, 'Ether')} $</td>
             </tr>

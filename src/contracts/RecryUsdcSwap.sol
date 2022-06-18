@@ -38,6 +38,14 @@ contract RecryUsdcSwap {
     {
            return  _value = ((maxSupply+protocolGain)/maxSupply);
     }
+    function getRecryPrice() public view returns(uint _value)
+    {
+           return  _value = ((maxSupply+protocolGain)/maxSupply)*1000000000000000000;
+    }
+    function getTotalValue() public view returns(uint _value)
+    {
+           return  _value = getRecryValue() * recry.balanceOf(msg.sender);
+    }
 
     function getMaxSupply() public view returns(uint _value)
     {
@@ -69,7 +77,6 @@ contract RecryUsdcSwap {
         if(!hasPurchased[msg.sender]) {
             buyers.push(msg.sender);
         }
-
         // Update buying status
         isPurchased[msg.sender] = true;
         hasPurchased[msg.sender] = true;
