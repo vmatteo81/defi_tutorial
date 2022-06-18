@@ -44,6 +44,7 @@ contract RecryUsdcSwap {
     {
             return maxSupply;
     }
+    
     function getProtocolGain() public view returns(uint _value)
     {
             return protocolGain;
