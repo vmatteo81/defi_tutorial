@@ -15,12 +15,6 @@ body {
     background-color: #232743;
     box-sizing: border-box;
 }
-.jss22 {
-    display: block;
-    min-width: 195px;
-    min-height: 10px;
-    padding-left: 24px;
-}
 
 .MuiAppBar-colorPrimary {
     color: rgba(0, 0, 0, 0.87);
@@ -209,6 +203,7 @@ body {
 }
 .jss17 img {
     height: 18px;
+    width: 18px;
     margin-right: 5px;
 }
 .jss22 {
