@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import dai from '../dai.png'
+import usdc from '../usdc.png'
 
 class Main extends Component {
 
@@ -54,7 +54,7 @@ class Main extends Component {
                   required />
                 <div className="input-group-append">
                   <div className="input-group-text">
-                    <img src={dai} height='32' alt=""/>
+                    <img src={usdc} height='32' alt=""/>
                     &nbsp;&nbsp;&nbsp; Usdc
                   </div>
                 </div>
