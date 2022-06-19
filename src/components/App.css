@@ -1,12 +1,354 @@
-/* Styles go here */
-.navbar{
-    -webkit-font-smoothing: antialiased;
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+body {
     color: #F5F5FF;
+    margin: 0;
     font-size: 16px;
     font-family: "DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     font-weight: 400;
     line-height: 24px;
     text-transform: none;
-    box-sizing: inherit;
+    background-color: #232743;
+    box-sizing: border-box;
+}
+.jss22 {
+    display: block;
+    min-width: 195px;
+    min-height: 10px;
+    padding-left: 24px;
+}
+
+.MuiAppBar-colorPrimary {
+    color: rgba(0, 0, 0, 0.87);
+    background-color: #59A662;
+}
+
+.MuiAppBar-positionStatic {
+    position: static;
+}
+
+.MuiAppBar-root {
+    width: 100%;
+    display: flex;
+    z-index: 1100;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    flex-direction: column;
+}
+
+.MuiPaper-elevation4 {
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+}
+
+.MuiPaper-root {
+    color: #F5F5FF;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    background-color: #232743;
+}
+
+
+.MuiContainer-maxWidthLg {
+    max-width: 1296px;
+    min-width: 1296px;
+}
+
+.MuiContainer-root {
+    padding-left: 24px;
+    padding-right: 24px;
+    min-width: 600px;
+}
+.MuiContainer-root {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.MuiToolbar-regular {
+    min-height: 64px;
+    min-width: 600px;
+}
+
+.MuiToolbar-regular {
+    min-height: 48px;
+    min-width: 0px;
+    orientation: landscape;
+}
+
+.MuiToolbar-regular {
+    min-height: 56px;
+}
+.MuiToolbar-root {
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+.MuiSvgIcon-root {
+    fill: currentColor;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    font-size: 1.5rem;
+    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    flex-shrink: 0;
+    user-select: none;
+}
+.MuiAvatar-root {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    font-size: 1.25rem;
+    align-items: center;
+    flex-shrink: 0;
+    font-family: "DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    line-height: 1;
+    user-select: none;
+    border-radius: 50%;
+    justify-content: center;
+}
+.MuiFormControl-root {
+    border: 0;
+    margin: 0;
+    display: inline-flex;
+    padding: 0;
+    position: relative;
+    min-width: 0;
+    flex-direction: column;
+    vertical-align: top;
+}
+.MuiGrid-align-items-xs-center {
+    align-items: center;
+}
+
+.MuiGrid-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+.jss7 {
+    background: transparent;
+    box-shadow: none;
+}
+.jss8 {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+.jss9 {
+    background-color: #121212;
+}
+.jss10 {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.jss12 {
+    display: block;
+}
+.jss12 img {
+    height: 40px;
+    display: block;
+}
+.jss13 {
+    color: #8A8EA8;
+    margin: 12px;
+    font-size: 16px;
+    font-family: "DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-weight: 500;
+    line-height: 24px;
+    text-transform: none;
+    text-decoration: none;
+}
+.jss13 a {
+    color: #8A8EA8;
+    text-decoration: none;
+}
+.jss15 {
+    color: #F5F5FF;
+}
+.jss16 {
+    color: #8A8EA8;
+    display: flex;
+    font-size: 16px;
+    align-items: center;
+    font-family: "DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-weight: 500;
+    line-height: 24px;
+    white-space: nowrap;
+    margin-right: 24px;
+    text-transform: none;
+    justify-content: center;
+    text-decoration: none;
+}
+.jss16 img {
+    height: 18px;
+    margin-right: 5px;
+}
+.jss17 {
+    color: #8A8EA8;
+    display: flex;
+    font-size: 16px;
+    align-items: center;
+    font-family: "DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-weight: 500;
+    line-height: 24px;
+    text-transform: none;
+    justify-content: center;
+    text-decoration: none;
+}
+.jss17 img {
+    height: 18px;
+    margin-right: 5px;
+}
+.jss22 {
+    display: block;
+    min-width: 195px;
+    min-height: 10px;
+    padding-left: 24px;
+}
+.jss23 {
     flex-grow: 1;
+}
+.jss24 {
+    flex-grow: 1;
+}
+.jss25 {
+}
+.jss26 {
+    width: 44px;
+    border: 2px solid #30354F;
+    cursor: pointer;
+    height: 40px;
+    display: flex;
+    padding: 0;
+    align-items: center;
+    border-radius: 8px;
+    justify-content: center;
+    background-color: transparent;
+}
+.jss26.open {
+    background-color: #242737;
+}
+.jss27 {
+    width: 12px;
+    height: 12px;
+    position: relative;
+    border-radius: 30px;
+}
+.jss27.warning {
+    background-color: #D19847;
+}
+.jss29 {
+    width: 12px;
+    height: 12px;
+    opacity: 0;
+    position: absolute;
+    animation: jss28 4s infinite cubic-bezier(.36, .11, .89, .32);
+    border-radius: 50%;
+}
+.jss29:nth-child(1) {
+    animation-delay: 0s;
+}
+.jss29.notLoading {
+    display: none;
+}
+.jss29.warning {
+    background-color: #D19847;
+}
+.jss43 {
+    flex-grow: 1;
+}
+.jss44 {
+}
+.jss45 {
+    color: #8A8EA8;
+    background: transparent;
+    margin-right: 24px;
+    padding-left: 0;
+    padding-right: 0;
+}
+.jss46 {
+    color: #D0D0DA;
+    width: fit-content;
+    border: solid 2px #303550;
+    cursor: pointer;
+    padding: 6px 14px;
+    font-size: 16px;
+    min-width: 0;
+    box-shadow: none;
+    text-align: left;
+    font-family: "DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-weight: 500;
+    line-height: 24px;
+    user-select: none;
+    border-radius: 8px;
+    text-transform: none;
+    background-color: #262A40;
+}
+.jss47 {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+}
+.jss49 {
+    overflow: hidden;
+    flex-grow: 0;
+    min-width: 0;
+    flex-shrink: 1;
+    white-space: nowrap;
+    margin-right: 4px;
+    text-overflow: ellipsis;
+}
+.jss50 {
+    fill: currentColor;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+.jss52 {
+    padding: 8px 16px;
+    border-width: 0;
+}
+.jss58 {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    justify-content: center;
+}
+.jss58 .MuiGrid-container {
+    cursor: pointer;
+    padding: 8px 16px;
+    flex-wrap: inherit;
+}
+.jss61 {
+    border: 2px solid #D19847;
+}
+.jss61 .MuiAvatar-root {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+.jss61 .jss59 {
+    color: #D0D0DA;
+}
+.jss62 {
+    border-color: #59A662;
+}
+.jss65 {
+}
+.jss258 {
+    margin-right: 24px;
 }

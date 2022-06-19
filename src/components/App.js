@@ -19,6 +19,7 @@ class App extends Component {
 
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
+    this.setState({ account_min: accounts[0].substring(0,6)+'...'+accounts[0].substring(accounts[0].length-4) })
 
     const networkId = await web3.eth.net.getId()
 
@@ -100,6 +101,7 @@ class App extends Component {
     super(props)
     this.state = {
       account: '0x0',
+      account_min :'0x0',
       usdcToken: {},
       recryToken: {},
       recryUsdcSwap: {},
