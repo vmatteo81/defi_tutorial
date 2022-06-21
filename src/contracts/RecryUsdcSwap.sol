@@ -12,10 +12,6 @@ contract RecryUsdcSwap {
     uint public maxSupply    = 500000000000000000000000; //number of toklen available 500000
     uint public protocolGain = 0; //protocol gain
 
-    address[] public buyers;
-    mapping(address => bool) public hasPurchased;
-    mapping(address => bool) public isPurchased;
-
     constructor(ReCryptoToken _recry, UsdcToken _usdc) {
         recry = _recry;
         usdc = _usdc;
@@ -26,11 +22,14 @@ contract RecryUsdcSwap {
         _;
     }
 
-    function addSupply(uint _amount) public isOwner {
+    function addRecrySupply(uint _amount) public isOwner {
+       
+        require(recry.balanceOf(msg.sender) >= _amount , "no enough recry to add");
+        require(recry.transferFrom(msg.sender, address(this), _amount));
         maxSupply = maxSupply + _amount;
     }
 
-    function changeSupply(uint _amount) public isOwner {
+    function changeRecrySupply(uint _amount) public isOwner {
         maxSupply = _amount;
     }
 
@@ -42,19 +41,23 @@ contract RecryUsdcSwap {
     {
            return  _value = ((maxSupply+protocolGain)/maxSupply)*1000000000000000000;
     }
-    function getTotalValue() public view returns(uint _value)
+    function getRecryTotalValue() public view returns(uint _value)
     {
            return  _value = getRecryValue() * recry.balanceOf(msg.sender);
     }
 
-    function getMaxSupply() public view returns(uint _value)
+    function getRecryMaxSupply() public view returns(uint _value)
     {
             return maxSupply;
     }
 
-    function getMaxAvailable() public view returns(uint _value)
+    function getRecryMaxAvailable() public view returns(uint _value)
     {
             return recry.balanceOf(address(this));
+    }
+    function getUsdcMaxAvailable() public view returns(uint _value)
+    {
+            return usdc.balanceOf(address(this));
     }
 
     function getProtocolGain() public view returns(uint _value)
@@ -69,17 +72,28 @@ contract RecryUsdcSwap {
         require(recry.balanceOf(address(this)) >= qtyToBuy , "no enough recry to buy");
 
         // Trasnfer usdc to the owner not in the protocol
-        require(usdc.transferFrom(msg.sender, owner, _amount));
+        require(usdc.transferFrom(msg.sender, address(this), _amount));
         // Trasnfer recry to the buyer
         recry.transferFrom(address(this), msg.sender, _amount);        
+    }
 
-        // Add user to buyers array *only* if they haven't buyed already
-        if(!hasPurchased[msg.sender]) {
-            buyers.push(msg.sender);
-        }
-        // Update buying status
-        isPurchased[msg.sender] = true;
-        hasPurchased[msg.sender] = true;
+    function sellRecryForUsdc(uint _amount) public {
+        // Require amount greater than 0
+        uint qtyToSell = _amount * getRecryValue();
+        require(_amount > 0, "amount cannot be 0");
+        require(recry.balanceOf(msg.sender) >= _amount , "no enough recry to sell");
+        require(getUsdcMaxAvailable() >= qtyToSell , "no enough usdc to swap");
+
+        // Trasnfer usdc to the owner not in the protocol
+        require(recry.transferFrom(msg.sender, address(this), _amount));
+        // Trasnfer recry to the buyer
+        usdc.transferFrom(address(this), msg.sender, qtyToSell);        
+
+    }
+
+    function withdrawUsdc(uint _amount) public isOwner{
+        require(usdc.balanceOf(address(this)) > _amount, "no enough usdc to withdraw");
+        require(usdc.transferFrom(address(this), msg.sender, _amount));
     }
 
 }
