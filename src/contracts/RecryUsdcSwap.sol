@@ -72,7 +72,7 @@ contract RecryUsdcSwap {
         require(recry.balanceOf(address(this)) >= qtyToBuy , "no enough recry to buy");
 
         // Trasnfer usdc to the owner not in the protocol
-        require(usdc.transferFrom(msg.sender, address(this), _amount));
+        require(usdc.transferFrom(msg.sender, owner, _amount));
         // Trasnfer recry to the buyer
         recry.transferFrom(address(this), msg.sender, _amount);        
     }

@@ -1,14 +1,19 @@
+const Authority = artifacts.require('Authority')
 const RecryptoToken = artifacts.require('RecryptoToken')
 const UsdcToken = artifacts.require('UsdcToken')
 const RecryUsdcSwap = artifacts.require('RecryUsdcSwap')
 
 module.exports = async function(deployer, network, accounts) {
+  // Deploy authority
+  await deployer.deploy(Authority)
+  const authority = await Authority.deployed()
+
   // Deploy Mock DAI Token
   await deployer.deploy(UsdcToken)
   const usdcToken = await UsdcToken.deployed()
 
   // Deploy Dapp Token
-  await deployer.deploy(RecryptoToken)
+  await deployer.deploy(RecryptoToken,authority.address)
   const recryToken = await RecryptoToken.deployed()
 
   // Deploy RecryUsdcSwap

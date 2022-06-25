@@ -1,11 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
+import "./Authority.sol";
+
 contract ReCryptoToken {
     string  public name = "ReCrypto Token";
     string  public symbol = "RECRY";
     uint256 public totalSupply = 1000000000000000000000000000000000; // 1 trillion tokens
     uint8   public decimals = 18;
+    Authority auth;
 
     event Transfer(
         address indexed _from,
@@ -22,11 +25,13 @@ contract ReCryptoToken {
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
 
-    constructor() {
+    constructor(Authority _auth) {
         balanceOf[msg.sender] = totalSupply;
+        auth = _auth;
     }
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
+        require (auth.isAuthorized(_to, msg.sender) == true , "not authorized");
         require(balanceOf[msg.sender] >= _value);
         balanceOf[msg.sender] -= _value;
         balanceOf[_to] += _value;
@@ -41,6 +46,7 @@ contract ReCryptoToken {
     }
 
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
+         require (auth.isAuthorized(_from, _to) == true , "not authorized");
         require(_value <= balanceOf[_from]);
         require(_value <= allowance[_from][msg.sender]);
         balanceOf[_from] -= _value;

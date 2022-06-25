@@ -18,16 +18,6 @@ class Navbar extends Component {
           </div>
           <div class="MuiBox-root jss25 jss8 jss17">
             <img alt="RECRY" src={logo} class ="MuiAvatar-root MuiAvatar-circular"/>{window.web3.utils.fromWei(this.props.recryPrice, 'Ether')} $
-            <div class="MuiBox-root jss44">
-              <button class="jss46 jss45 jss52">
-                <div class="jss47">
-                  <div class="jss49">EN</div>
-                  <svg class="MuiSvgIcon-root jss50" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
-                  </svg>
-                </div>
-              </button>
-            </div>
           <div class="MuiBox-root jss258">
             <div class="jss17">
               <img alt="bsc" src={bsc_logo} /> BSC 
