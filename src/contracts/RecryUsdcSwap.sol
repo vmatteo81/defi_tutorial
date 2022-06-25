@@ -23,7 +23,6 @@ contract RecryUsdcSwap {
     }
 
     function addRecrySupply(uint _amount) public isOwner {
-       
         require(recry.balanceOf(msg.sender) >= _amount , "no enough recry to add");
         require(recry.transferFrom(msg.sender, address(this), _amount));
         maxSupply = maxSupply + _amount;
@@ -31,6 +30,14 @@ contract RecryUsdcSwap {
 
     function changeRecrySupply(uint _amount) public isOwner {
         maxSupply = _amount;
+    }
+
+    function addProtocolGain(uint _amount) public isOwner {
+        protocolGain = protocolGain + _amount;
+    }
+
+    function changeProtocolGain(uint _amount) public isOwner {
+         protocolGain = _amount;
     }
 
     function getRecryValue() public view returns(uint _value)
@@ -70,9 +77,26 @@ contract RecryUsdcSwap {
         uint qtyToBuy = _amount / getRecryValue();
         require(_amount > 0, "amount cannot be 0");
         require(recry.balanceOf(address(this)) >= qtyToBuy , "no enough recry to buy");
-
-        // Trasnfer usdc to the owner not in the protocol
-        require(usdc.transferFrom(msg.sender, owner, _amount));
+        uint maxRecharge = protocolGain - getUsdcMaxAvailable();
+        if (maxRecharge > 0)
+        {
+               // Trasnfer some usdc to refill the protocol  not in the protocol
+               if (_amount > maxRecharge)
+               {
+                     require(usdc.transferFrom(msg.sender, address(this), maxRecharge)); 
+                     require(usdc.transferFrom(msg.sender, owner, _amount-maxRecharge)); 
+               }
+               else
+               {
+                    require(usdc.transferFrom(msg.sender, address(this), _amount)); 
+               }
+        }
+        else
+        {
+             // Trasnfer usdc to the owner not in the protocol
+               require(usdc.transferFrom(msg.sender, owner, _amount)); 
+        }
+        
         // Trasnfer recry to the buyer
         recry.transferFrom(address(this), msg.sender, _amount);        
     }
@@ -93,7 +117,7 @@ contract RecryUsdcSwap {
 
     function withdrawUsdc(uint _amount) public isOwner{
         require(usdc.balanceOf(address(this)) > _amount, "no enough usdc to withdraw");
-        require(usdc.transferFrom(address(this), msg.sender, _amount));
+        require(usdc.transferFrom(address(this), owner, _amount));
     }
 
 }

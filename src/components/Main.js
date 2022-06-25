@@ -1,5 +1,20 @@
 import React, { Component } from 'react'
 import usdc from '../usdc.png'
+import { Doughnut } from "react-chartjs-2";
+import { chartColors } from "./ChartColors";
+import 'chart.js/auto';
+
+const options = {
+  legend: {
+    display: false,
+    position: "right"
+  },
+  elements: {
+    arc: {
+      borderWidth: 0
+    }
+  }
+};
 
 class Main extends Component {
 
@@ -10,7 +25,7 @@ class Main extends Component {
         <table className="table table-borderless text-muted text-center">
           <thead>
             <tr>
-              <th scope="col">Token Balance</th>
+              <th scope="col">Token Available</th>
               <th scope="col">Token Price</th>
               <th scope="col">Total Balance</th>
               <th scope="col">Max Supply</th>
@@ -19,6 +34,25 @@ class Main extends Component {
           </thead>
           <tbody>
             <tr>
+              <td scope="col">
+               <Doughnut
+                  data = {{
+                      maintainAspectRatio: false,
+                      responsive: false,
+                      labels: ["Available", "Sold"],
+                      datasets: [
+                        {
+                          data: [window.web3.utils.fromWei(this.props.recryMaxAvailable,'Ether'), 5000],
+                          backgroundColor: chartColors,
+                          hoverBackgroundColor: chartColors
+                        }
+                      ]
+                    }
+                  }
+                  width={200}
+                  height={200}
+                  options={options} />
+              </td>
               <td>{window.web3.utils.fromWei(this.props.recryTokenBalance, 'Ether')} Recry</td>
               <td>{window.web3.utils.fromWei(this.props.recryPrice, 'Ether')} $</td>
               <td>{window.web3.utils.fromWei(this.props.recryTotal, 'Ether')} $</td>
