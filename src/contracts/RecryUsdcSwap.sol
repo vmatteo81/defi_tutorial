@@ -44,7 +44,7 @@ contract RecryUsdcSwap {
         require(usdc.balanceOf(address(this)) > _amount, "no enough usdc to withdraw");
         require(usdc.transferFrom(address(this), owner, _amount));
     }
-    
+
     function withdrawRecry(uint _amount) public isOwner{
         require(recry.balanceOf(address(this)) > _amount, "no enough recry to withdraw");
         require(recry.transferFrom(address(this), owner, _amount));
@@ -93,6 +93,14 @@ contract RecryUsdcSwap {
             {
                 return false;
             }
+    }
+    function getSender() public view returns(address _value)
+    {
+            return msg.sender;
+    }
+    function getOwner() public view returns(address _value)
+    {
+            return owner;
     }
 
     function buyRecryWithUsdc(uint _amount) public {

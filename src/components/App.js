@@ -65,9 +65,11 @@ class App extends Component {
       this.setState({ usdcMaxSellAvailable: usdcMaxSellAvailable.toString() })
       let protocolGain = await recryUsdcSwap.methods.getProtocolGain().call()
       this.setState({ protocolGain: protocolGain.toString() })
-      let isOwner = await recryUsdcSwap.methods.isOwnerX().call()
-      window.alert('is owner:' +isOwner);
-      this.setState({ isOwner: isOwner })
+      this.setState({ isOwner: false })
+      if (accounts[0] === await recryUsdcSwap.methods.getOwner().call())
+      {
+        this.setState({ isOwner: true })
+      }
     } else {
       window.alert('RecryUsdcSwap contract not deployed to detected network.')
     }
