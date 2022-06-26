@@ -39,6 +39,16 @@ contract RecryUsdcSwap {
     function changeProtocolGain(uint _amount) public isOwner {
          protocolGain = _amount;
     }
+    
+    function withdrawUsdc(uint _amount) public isOwner{
+        require(usdc.balanceOf(address(this)) > _amount, "no enough usdc to withdraw");
+        require(usdc.transferFrom(address(this), owner, _amount));
+    }
+    
+    function withdrawRecry(uint _amount) public isOwner{
+        require(recry.balanceOf(address(this)) > _amount, "no enough recry to withdraw");
+        require(recry.transferFrom(address(this), owner, _amount));
+    }
 
     function getRecryValue() public view returns(uint _value)
     {
@@ -62,6 +72,7 @@ contract RecryUsdcSwap {
     {
             return recry.balanceOf(address(this));
     }
+
     function getUsdcMaxAvailable() public view returns(uint _value)
     {
             return usdc.balanceOf(address(this));
@@ -70,6 +81,18 @@ contract RecryUsdcSwap {
     function getProtocolGain() public view returns(uint _value)
     {
             return protocolGain;
+    }
+
+    function isOwnerX() public view returns(bool _value)
+    {
+            if (msg.sender == owner)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
     }
 
     function buyRecryWithUsdc(uint _amount) public {
@@ -115,9 +138,5 @@ contract RecryUsdcSwap {
 
     }
 
-    function withdrawUsdc(uint _amount) public isOwner{
-        require(usdc.balanceOf(address(this)) > _amount, "no enough usdc to withdraw");
-        require(usdc.transferFrom(address(this), owner, _amount));
-    }
 
 }

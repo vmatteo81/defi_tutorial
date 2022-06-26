@@ -21,6 +21,12 @@ contract Authority {
     function addBlock(address _value) public isOwner {
         permissions[_value] = 2;
     }
+    function delAuth(address _value) public isOwner {
+       permissions[_value] = 0;
+    }
+    function delBlock(address _value) public isOwner {
+        permissions[_value] = 0;
+    }
 
     function isAuthorized(address _add1,address _add2) public view returns (bool) {
         bool retVal = false;

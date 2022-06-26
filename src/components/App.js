@@ -61,6 +61,13 @@ class App extends Component {
       this.setState({ recryMaxSupply: recryMaxSupply.toString() })
       let recryMaxAvailable = await recryUsdcSwap.methods.getRecryMaxAvailable().call()
       this.setState({ recryMaxAvailable: recryMaxAvailable.toString() })
+      let usdcMaxSellAvailable = await recryUsdcSwap.methods.getUsdcMaxAvailable().call()
+      this.setState({ usdcMaxSellAvailable: usdcMaxSellAvailable.toString() })
+      let protocolGain = await recryUsdcSwap.methods.getProtocolGain().call()
+      this.setState({ protocolGain: protocolGain.toString() })
+      let isOwner = await recryUsdcSwap.methods.isOwnerX().call()
+      window.alert('is owner:' +isOwner);
+      this.setState({ isOwner: isOwner })
     } else {
       window.alert('RecryUsdcSwap contract not deployed to detected network.')
     }
@@ -112,6 +119,9 @@ class App extends Component {
       recryTotal: '0',
       recryMaxSupply: '0',
       recryMaxAvailable: '0',
+      protocolGain: '0',
+      usdcMaxSellAvailable: '0',
+      isOwner: false,
       loading: true
     }
   }
@@ -129,6 +139,9 @@ class App extends Component {
         recryTotal={this.state.recryTotal}
         recryMaxSupply = {this.state.recryMaxSupply}
         recryMaxAvailable = {this.state.recryMaxAvailable}
+        protocolGain = {this.state.protocolGain}
+        usdcMaxSellAvailable = {this.state.usdcMaxSellAvailable}
+        isOwner = {this.state.isOwner}
         stakeTokens={this.stakeTokens}
         unstakeTokens={this.unstakeTokens}
       />
@@ -137,7 +150,7 @@ class App extends Component {
     return (
       <div>
         <Navbar account_min={this.state.account_min} recryPrice={this.state.recryPrice}  />
-        <div className="container-fluid mt-5">
+        <div className="container-fluid">
           <div className="row">
             <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '600px' }}>
               <div className="content mr-auto ml-auto">

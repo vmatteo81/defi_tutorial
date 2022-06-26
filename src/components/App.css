@@ -16,6 +16,28 @@ body {
     box-sizing: border-box;
 }
 
+.btn-buy {
+    margin-left: 1rem;
+    color: #F5F5FF;
+    background-color: #008060;
+}
+
+.btn-buy:hover {
+    color: #F5F5FF;
+    border-color: #4dffd2;
+}
+
+.btn-sell {
+    margin-left: 1rem;
+    color: #F5F5FF;
+    background-color: #990000;
+}
+
+.btn-sell:hover {
+    color: #F5F5FF;
+    border-color: #ff6666;
+}
+
 .MuiAppBar-colorPrimary {
     color: rgba(0, 0, 0, 0.87);
     background-color: #59A662;
