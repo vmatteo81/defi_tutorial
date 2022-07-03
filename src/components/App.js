@@ -90,19 +90,21 @@ class App extends Component {
     }
   }
 
-  stakeTokens = (amount) => {
+  buyTokens = (amount) => {
     this.setState({ loading: true })
     this.state.usdcToken.methods.approve(this.state.recryUsdcSwap._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
-      this.state.recryUsdcSwap.methods.stakeTokens(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+      this.state.recryUsdcSwap.methods.buyRecryWithUsdc(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
         this.setState({ loading: false })
       })
     })
   }
 
-  unstakeTokens = (amount) => {
+  sellTokens = (amount) => {
     this.setState({ loading: true })
-    this.state.recryUsdcSwap.methods.unstakeTokens().send({ from: this.state.account }).on('transactionHash', (hash) => {
-      this.setState({ loading: false })
+    this.state.recryToken.methods.approve(this.state.recryUsdcSwap._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+      this.state.recryUsdcSwap.methods.sellRecryForUsdc(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+        this.setState({ loading: false })
+      })
     })
   }
 
@@ -144,8 +146,8 @@ class App extends Component {
         protocolGain = {this.state.protocolGain}
         usdcMaxSellAvailable = {this.state.usdcMaxSellAvailable}
         isOwner = {this.state.isOwner}
-        stakeTokens={this.stakeTokens}
-        unstakeTokens={this.unstakeTokens}
+        buyTokens={this.buyTokens}
+        sellTokens={this.sellTokens}
       />
     }
 

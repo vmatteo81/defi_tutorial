@@ -89,7 +89,7 @@ class Main extends Component {
                 let amount
                 amount = this.input.value.toString()
                 amount = window.web3.utils.toWei(amount, 'Ether')
-                this.props.stakeTokens(amount)
+                this.props.buyTokens(amount)
               }}>
               <div>
               <span className="float-left text-muted">
@@ -120,7 +120,7 @@ class Main extends Component {
                 let amount
                 amount = this.input.value.toString()
                 amount = window.web3.utils.toWei(amount, 'Ether')
-                this.props.stakeTokens(amount)
+                this.props.sellTokens(amount)
               }}>
               <div>
                 <span className="float-left text-muted">
