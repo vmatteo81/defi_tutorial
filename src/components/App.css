@@ -15,6 +15,9 @@ body {
     background-color: #232743;
     box-sizing: border-box;
 }
+.input-number {
+        text-align: right;
+}
 
 .btn-buy {
     margin-left: 1rem;

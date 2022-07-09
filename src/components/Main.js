@@ -87,8 +87,10 @@ class Main extends Component {
             <form className="mb-3" onSubmit={(event) => {
                 event.preventDefault()
                 let amount
-                amount = this.input.value.toString()
+                amount = this.buy_amount.value.toString()
+                console.log("amount:"+amount);
                 amount = window.web3.utils.toWei(amount, 'Ether')
+                console.log("wei-amount:"+amount);
                 this.props.buyTokens(amount)
               }}>
               <div>
@@ -102,8 +104,8 @@ class Main extends Component {
               <div className="input-group mb-4">
                 <input
                   type="text"
-                  ref={(input) => { this.input = input }}
-                  className="form-control form-control-lg"
+                  ref={(buy_amount) => { this.buy_amount = buy_amount }}
+                  className="form-control form-control-lg input-number"
                   placeholder="0"
                   required />
                 <div className="input-group-append">
@@ -118,7 +120,7 @@ class Main extends Component {
             <form className="mb-3" onSubmit={(event) => {
                 event.preventDefault()
                 let amount
-                amount = this.input.value.toString()
+                amount = this.sell_amount.value.toString()
                 amount = window.web3.utils.toWei(amount, 'Ether')
                 this.props.sellTokens(amount)
               }}>
@@ -133,8 +135,8 @@ class Main extends Component {
               <div className="input-group mb-4">
                 <input
                   type="text"
-                  ref={(input) => { this.input = input }}
-                  className="form-control form-control-lg"
+                  ref={(sell_amount) => { this.sell_amount = sell_amount }}
+                  className="form-control form-control-lg input-number"
                   placeholder="0"
                   required />
                 <div className="input-group-append">

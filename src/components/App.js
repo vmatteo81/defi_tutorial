@@ -93,6 +93,7 @@ class App extends Component {
   buyTokens = (amount) => {
     this.setState({ loading: true })
     this.state.usdcToken.methods.approve(this.state.recryUsdcSwap._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+      window.alert('Amount:'+amount)
       this.state.recryUsdcSwap.methods.buyRecryWithUsdc(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
         this.setState({ loading: false })
       })

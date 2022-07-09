@@ -3,13 +3,15 @@ pragma solidity ^0.8.4;
 
 import "./ReCryptoToken.sol";
 import "./UsdcToken.sol";
+import "hardhat/console.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract RecryUsdcSwap {
     address public owner;
     ReCryptoToken public recry;
     UsdcToken public usdc;
 
-    uint public maxSupply    = 500000000000000000000000; //number of toklen available 500000
+    uint public maxSupply    = 0; //number of toklen available 500000
     uint public protocolGain = 0; //protocol gain
 
     constructor(ReCryptoToken _recry, UsdcToken _usdc) {
@@ -22,10 +24,13 @@ contract RecryUsdcSwap {
         _;
     }
 
-    function addRecrySupply(uint _amount) public isOwner {
+    function addRecrySupply(uint _amount) public payable isOwner {
+        console.log("ok0");
         require(recry.balanceOf(msg.sender) >= _amount , "no enough recry to add");
         require(recry.transferFrom(msg.sender, address(this), _amount));
+        console.log("ok2");
         maxSupply = maxSupply + _amount;
+        console.log(Strings.toString(maxSupply));
     }
 
     function changeRecrySupply(uint _amount) public isOwner {
