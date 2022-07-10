@@ -275,11 +275,11 @@
 			]
 		},
 		"Documents/GitHub/ReCrypto/src/contracts/ReCryptoToken.sol": {
-			"keccak256": "0x6e3b044141b2f4d59aab3b479eed9606036f9cecf27d2167d864ef3406e990a4",
+			"keccak256": "0x493e0c707a14df209440d240a5c181b549f14f21b33f7377d1b3d9d84879f98d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3530ba85b1d45eca558189f5b31a69f58247809a482eff453cb53c28a9c2393e",
-				"dweb:/ipfs/Qmad51vKxBbAwgpzY2WXqjBPfY7eyzd9P36hEtkDdQoTME"
+				"bzz-raw://989c12c35de24f72ae3c403ad602c0a8bb22bf23886a7bac49b519f3572ecb51",
+				"dweb:/ipfs/Qmbnide9ewwtLbnrgW49gJ4suxhifNoMocFB24bMcVQcL6"
 			]
 		}
 	},

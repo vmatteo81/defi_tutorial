@@ -32,7 +32,7 @@ contract ReCryptoToken {
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
         require (auth.isAuthorized(_to, msg.sender) == true , "not authorized");
-        require(balanceOf[msg.sender] >= _value);
+        require(balanceOf[msg.sender] >= _value,"not balance");
         balanceOf[msg.sender] -= _value;
         balanceOf[_to] += _value;
         emit Transfer(msg.sender, _to, _value);
@@ -46,9 +46,9 @@ contract ReCryptoToken {
     }
 
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
-         require (auth.isAuthorized(_from, _to) == true , "not authorized");
-        require(_value <= balanceOf[_from]);
-        require(_value <= allowance[_from][msg.sender]);
+        require (auth.isAuthorized(_from, _to) == true , "not authorized");
+        require(_value <= balanceOf[_from],"not balance");
+        require(_value <= allowance[_from][msg.sender],"not allowance");
         balanceOf[_from] -= _value;
         balanceOf[_to] += _value;
         allowance[_from][msg.sender] -= _value;

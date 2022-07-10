@@ -3,8 +3,6 @@ pragma solidity ^0.8.4;
 
 import "./ReCryptoToken.sol";
 import "./UsdcToken.sol";
-import "hardhat/console.sol";
-import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract RecryUsdcSwap {
     address public owner;
@@ -25,12 +23,9 @@ contract RecryUsdcSwap {
     }
 
     function addRecrySupply(uint _amount) public payable isOwner {
-        console.log("ok0");
         require(recry.balanceOf(msg.sender) >= _amount , "no enough recry to add");
-        require(recry.transferFrom(msg.sender, address(this), _amount));
-        console.log("ok2");
+        require(recry.transferFrom(msg.sender,address(this), _amount));
         maxSupply = maxSupply + _amount;
-        console.log(Strings.toString(maxSupply));
     }
 
     function changeRecrySupply(uint _amount) public isOwner {
@@ -45,14 +40,14 @@ contract RecryUsdcSwap {
          protocolGain = _amount;
     }
     
-    function withdrawUsdc(uint _amount) public isOwner{
+    function withdrawUsdc(uint _amount) public payable isOwner{
         require(usdc.balanceOf(address(this)) > _amount, "no enough usdc to withdraw");
-        require(usdc.transferFrom(address(this), owner, _amount));
+        require(usdc.transfer(owner, _amount));
     }
 
-    function withdrawRecry(uint _amount) public isOwner{
+    function withdrawRecry(uint _amount) public payable isOwner{
         require(recry.balanceOf(address(this)) > _amount, "no enough recry to withdraw");
-        require(recry.transferFrom(address(this), owner, _amount));
+        require(recry.transfer(owner, _amount));
     }
 
     function getRecryValue() public view returns(uint _value)
@@ -108,7 +103,7 @@ contract RecryUsdcSwap {
             return owner;
     }
 
-    function buyRecryWithUsdc(uint _amount) public {
+    function buyRecryWithUsdc(uint _amount) public payable{
         // Require amount greater than 0
         uint qtyToBuy = _amount / getRecryValue();
         require(_amount > 0, "amount cannot be 0");
@@ -137,7 +132,7 @@ contract RecryUsdcSwap {
         recry.transferFrom(address(this), msg.sender, _amount);        
     }
 
-    function sellRecryForUsdc(uint _amount) public {
+    function sellRecryForUsdc(uint _amount) public payable{
         // Require amount greater than 0
         uint qtyToSell = _amount * getRecryValue();
         require(_amount > 0, "amount cannot be 0");
