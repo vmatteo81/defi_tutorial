@@ -93,18 +93,18 @@ class App extends Component {
   buyTokens = (amount) => {
     this.setState({ loading: true })
     this.state.usdcToken.methods.approve(this.state.recryUsdcSwap._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
-      window.alert('Amount:'+amount)
-      this.state.recryUsdcSwap.methods.buyRecryWithUsdc(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
-        this.setState({ loading: false })
-      })
+      this.state.recryUsdcSwap.methods.buyRecryWithUsdc(amount).send({ from: this.state.account })
+      .on('transactionHash', (hash) => {this.setState({ loading: false })})
+      .on('error',(error) =>this.setState({ loading: false }))
     })
   }
 
   sellTokens = (amount) => {
     this.setState({ loading: true })
     this.state.recryToken.methods.approve(this.state.recryUsdcSwap._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
-      this.state.recryUsdcSwap.methods.sellRecryForUsdc(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
-        this.setState({ loading: false })
+      this.state.recryUsdcSwap.methods.sellRecryForUsdc(amount).send({ from: this.state.account })
+      .on('transactionHash', (hash) => {this.setState({ loading: false })
+      .on('receipt',this.setState({ loading: false }))
       })
     })
   }

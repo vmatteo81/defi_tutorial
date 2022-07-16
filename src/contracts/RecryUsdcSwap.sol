@@ -129,7 +129,7 @@ contract RecryUsdcSwap {
         }
         
         // Trasnfer recry to the buyer
-        recry.transferFrom(address(this), msg.sender, _amount);        
+        recry.transfer(msg.sender, _amount);        
     }
 
     function sellRecryForUsdc(uint _amount) public payable{
@@ -142,7 +142,7 @@ contract RecryUsdcSwap {
         // Trasnfer usdc to the owner not in the protocol
         require(recry.transferFrom(msg.sender, address(this), _amount));
         // Trasnfer recry to the buyer
-        usdc.transferFrom(address(this), msg.sender, qtyToSell);        
+        usdc.transfer(msg.sender, qtyToSell);        
 
     }
 
