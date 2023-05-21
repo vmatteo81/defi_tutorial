@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Web3 from 'web3'
-import UsdcToken from '../abis/UsdcToken.json'
+import ReEURToken from '../abis/ReEURToken.json'
 import ReCryptoToken from '../abis/ReCryptoToken.json'
-import RecryUsdcSwap from '../abis/RecryUsdcSwap.json'
+import SwapRecryEur from '../abis/SwapRecryEur.json'
 import Navbar from './Navbar'
 import Main from './Main'
 import './App.css'
@@ -23,15 +23,15 @@ class App extends Component {
 
     const networkId = await web3.eth.net.getId()
 
-    // Load UsdcToken
-    const usdcTokenData = UsdcToken.networks[networkId]
-    if(usdcTokenData) {
-      const usdcToken = new web3.eth.Contract(UsdcToken.abi, usdcTokenData.address)
-      this.setState({ usdcToken })
-      let usdcTokenBalance = await usdcToken.methods.balanceOf(this.state.account).call()
-      this.setState({ usdcTokenBalance: usdcTokenBalance.toString() })
+    // Load ReEURToken
+    const eurTokenData = ReEURToken.networks[networkId]
+    if(eurTokenData) {
+      const eurToken = new web3.eth.Contract(ReEURToken.abi, eurTokenData.address)
+      this.setState({ eurToken })
+      let eurTokenBalance = await eurToken.methods.balanceOf(this.state.account).call()
+      this.setState({ eurTokenBalance: eurTokenBalance.toString() })
     } else {
-      window.alert('UsdcToken contract not deployed to detected network.')
+      window.alert('ReEURToken contract not deployed to detected network.')
     }
 
     // Load ReCryptoToken
@@ -46,32 +46,32 @@ class App extends Component {
     }
 
 
-    // Load RecryUsdcSwap
-    const recryUsdcSwapData = RecryUsdcSwap.networks[networkId]
-    if(recryUsdcSwapData) {
-      const recryUsdcSwap = new web3.eth.Contract(RecryUsdcSwap.abi, recryUsdcSwapData.address)
-      this.setState({ recryUsdcSwap })
-      let recryValue = await recryUsdcSwap.methods.getRecryValue().call()
+    // Load SwapRecryEur
+    const SwapRecryEurData = SwapRecryEur.networks[networkId]
+    if(SwapRecryEurData) {
+      const swapRecryEur = new web3.eth.Contract(SwapRecryEur.abi, SwapRecryEurData.address)
+      this.setState({ swapRecryEur })
+      let recryValue = await swapRecryEur.methods.getRecryValue().call()
       this.setState({ recryValue: recryValue.toString() })
-      let recryPrice = await recryUsdcSwap.methods.getRecryPrice().call()
+      let recryPrice = await swapRecryEur.methods.getRecryPrice().call()
       this.setState({ recryPrice: recryPrice.toString() })
-      let recryTotal = await recryUsdcSwap.methods.getRecryTotalValue().call()
+      let recryTotal = await swapRecryEur.methods.getRecryTotalValue().call()
       this.setState({ recryTotal: recryTotal.toString() })
-      let recryMaxSupply = await recryUsdcSwap.methods.getRecryMaxSupply().call()
+      let recryMaxSupply = await swapRecryEur.methods.getRecryMaxSupply().call()
       this.setState({ recryMaxSupply: recryMaxSupply.toString() })
-      let recryMaxAvailable = await recryUsdcSwap.methods.getRecryMaxAvailable().call()
+      let recryMaxAvailable = await swapRecryEur.methods.getRecryMaxAvailable().call()
       this.setState({ recryMaxAvailable: recryMaxAvailable.toString() })
-      let usdcMaxSellAvailable = await recryUsdcSwap.methods.getUsdcMaxAvailable().call()
-      this.setState({ usdcMaxSellAvailable: usdcMaxSellAvailable.toString() })
-      let protocolGain = await recryUsdcSwap.methods.getProtocolGain().call()
+      let eurMaxSellAvailable = await swapRecryEur.methods.getReEURMaxAvailable().call()
+      this.setState({ eurMaxSellAvailable: eurMaxSellAvailable.toString() })
+      let protocolGain = await swapRecryEur.methods.getProtocolGain().call()
       this.setState({ protocolGain: protocolGain.toString() })
       this.setState({ isOwner: false })
-      if (accounts[0] === await recryUsdcSwap.methods.getOwner().call())
+      if (accounts[0] === await swapRecryEur.methods.getOwner().call())
       {
         this.setState({ isOwner: true })
       }
     } else {
-      window.alert('RecryUsdcSwap contract not deployed to detected network.')
+      window.alert('SwapRecryEur contract not deployed to detected network.')
     }
 
     this.setState({ loading: false })
@@ -92,8 +92,8 @@ class App extends Component {
 
   buyTokens = (amount) => {
     this.setState({ loading: true })
-    this.state.usdcToken.methods.approve(this.state.recryUsdcSwap._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
-      this.state.recryUsdcSwap.methods.buyRecryWithUsdc(amount).send({ from: this.state.account })
+    this.state.eurToken.methods.approve(this.state.swapRecryEur._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+      this.state.swapRecryEur.methods.buyRecryWithReEUR(amount).send({ from: this.state.account })
       .on('transactionHash', (hash) => {this.setState({ loading: false })})
       .on('error',(error) =>this.setState({ loading: false }))
     })
@@ -101,8 +101,8 @@ class App extends Component {
 
   sellTokens = (amount) => {
     this.setState({ loading: true })
-    this.state.recryToken.methods.approve(this.state.recryUsdcSwap._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
-      this.state.recryUsdcSwap.methods.sellRecryForUsdc(amount).send({ from: this.state.account })
+    this.state.recryToken.methods.approve(this.state.swapRecryEur._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+      this.state.swapRecryEur.methods.sellRecryWithReEUR(amount).send({ from: this.state.account })
       .on('transactionHash', (hash) => {this.setState({ loading: false })
       .on('error',(error) =>this.setState({ loading: false }))
       })
@@ -114,10 +114,10 @@ class App extends Component {
     this.state = {
       account: '0x0',
       account_min :'0x0',
-      usdcToken: {},
+      eurToken: {},
       recryToken: {},
-      recryUsdcSwap: {},
-      usdcTokenBalance: '0',
+      swapRecryEur: {},
+      eurTokenBalance: '0',
       recryTokenBalance: '0',
       recryValue:'0',
       recryPrice: '0',
@@ -125,7 +125,7 @@ class App extends Component {
       recryMaxSupply: '0',
       recryMaxAvailable: '0',
       protocolGain: '0',
-      usdcMaxSellAvailable: '0',
+      eurMaxSellAvailable: '0',
       isOwner: false,
       loading: true
     }
@@ -137,7 +137,7 @@ class App extends Component {
       content = <p id="loader" className="text-center">Loading...</p>
     } else {
       content = <Main
-        usdcTokenBalance={this.state.usdcTokenBalance}
+        eurTokenBalance={this.state.eurTokenBalance}
         recryTokenBalance={this.state.recryTokenBalance}
         recryValue={this.state.recryValue}
         recryPrice={this.state.recryPrice}
@@ -145,7 +145,7 @@ class App extends Component {
         recryMaxSupply = {this.state.recryMaxSupply}
         recryMaxAvailable = {this.state.recryMaxAvailable}
         protocolGain = {this.state.protocolGain}
-        usdcMaxSellAvailable = {this.state.usdcMaxSellAvailable}
+        eurMaxSellAvailable = {this.state.eurMaxSellAvailable}
         isOwner = {this.state.isOwner}
         buyTokens={this.buyTokens}
         sellTokens={this.sellTokens}

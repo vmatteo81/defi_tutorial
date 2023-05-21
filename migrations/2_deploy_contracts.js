@@ -1,7 +1,7 @@
 const Authority = artifacts.require('Authority')
 const RecryptoToken = artifacts.require('RecryptoToken')
-const UsdcToken = artifacts.require('UsdcToken')
-const RecryUsdcSwap = artifacts.require('RecryUsdcSwap')
+const ReEURToken = artifacts.require('ReEURToken')
+const SwapRecryEur = artifacts.require('SwapRecryEur')
 
 function tokens(n) {
   return web3.utils.toWei(n, 'ether');
@@ -13,25 +13,25 @@ module.exports = async function(deployer, network, accounts) {
   const authority = await Authority.deployed()
 
   // Deploy Mock DAI Token
-  await deployer.deploy(UsdcToken)
-  const usdcToken = await UsdcToken.deployed()
+  await deployer.deploy(ReEURToken)
+  const reEurToken = await ReEURToken.deployed()
 
   // Deploy Dapp Token
   await deployer.deploy(RecryptoToken,authority.address)
   const recryToken = await RecryptoToken.deployed()
 
-  // Deploy RecryUsdcSwap
-  await deployer.deploy(RecryUsdcSwap, recryToken.address, usdcToken.address)
-  const recryUsdcSwap = await RecryUsdcSwap.deployed()
+  // Deploy SwapRecryEur
+  await deployer.deploy(SwapRecryEur, recryToken.address, reEurToken.address)
+  const swapRecryEur = await SwapRecryEur.deployed()
 
-  // Add RecryUsdcSwap to authorized
-  await authority.addAuth(recryUsdcSwap.address)
+  // Add SwapRecryEur to authorized
+  await authority.addAuth(swapRecryEur.address)
 
-  // Transfer all tokens to RecryUsdcSwap (1 million)
-  await recryToken.approve(recryUsdcSwap.address, tokens('500000'), { from: accounts[0] })
-  await recryUsdcSwap.addRecrySupply(tokens('500000'))
+  // Transfer all tokens to SwapRecryEur (1 million)
+  await recryToken.approve(swapRecryEur.address, tokens('500000'), { from: accounts[0] })
+  await swapRecryEur.addRecrySupply(tokens('500000'))
 
   // Transfer 1000 Mock Usdc tokens to investors
-  await usdcToken.transfer(accounts[1],tokens('1000'))
-  await usdcToken.transfer(accounts[2],tokens('1000'))
+  await reEurToken.transfer(accounts[1],tokens('1000'))
+  await reEurToken.transfer(accounts[2],tokens('1000'))
 }

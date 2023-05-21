@@ -232,7 +232,7 @@ class Main extends Component {
               <input
                 type="text"
                 ref={(input) => { this.input = input }}
-                className="form-control form-control-lg"
+                className="form-control form-control-lg input-number"
                 placeholder="0"
                 required />
               <div className="input-group-append">
@@ -263,7 +263,7 @@ class Main extends Component {
               <input
                 type="text"
                 ref={(input) => { this.input = input }}
-                className="form-control form-control-lg"
+                className="form-control form-control-lg input-number"
                 placeholder="0"
                 required />
               <div className="input-group-append">
@@ -291,7 +291,7 @@ class Main extends Component {
               <input
                 type="text"
                 ref={(input) => { this.input = input }}
-                className="form-control form-control-lg"
+                className="form-control form-control-lg input-number"
                 placeholder="0"
                 required />
               <div className="input-group-append">
@@ -319,7 +319,7 @@ class Main extends Component {
               <input
                 type="text"
                 ref={(input) => { this.input = input }}
-                className="form-control form-control-lg"
+                className="form-control form-control-lg input-number"
                 placeholder="0"
                 required />
               <div className="input-group-append">
@@ -350,7 +350,7 @@ class Main extends Component {
               <input
                 type="text"
                 ref={(input) => { this.input = input }}
-                className="form-control form-control-lg"
+                className="form-control form-control-lg input-number"
                 placeholder="0"
                 required />
               <div className="input-group-append">
@@ -381,7 +381,7 @@ class Main extends Component {
               <input
                 type="text"
                 ref={(input) => { this.input = input }}
-                className="form-control form-control-lg"
+                className="form-control form-control-lg input-number"
                 placeholder="0"
                 required />
               <div className="input-group-append">
