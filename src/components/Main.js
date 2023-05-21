@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import usdc from '../usdc.png'
+import eur from '../euro.png'
 import recry from '../recry.png'
 import { Doughnut } from "react-chartjs-2";
 import { buyChartColors } from "./ChartColors";
@@ -65,7 +65,7 @@ class Main extends Component {
                       labels: ["Available", "Sold"],
                       datasets: [
                         {
-                          data: [window.web3.utils.fromWei(this.props.protocolGain,'Ether'), window.web3.utils.fromWei(this.props.usdcMaxSellAvailable,'Ether')],
+                          data: [window.web3.utils.fromWei(this.props.protocolGain,'Ether'), window.web3.utils.fromWei(this.props.eurMaxSellAvailable,'Ether')],
                           backgroundColor: sellChartColors,
                           hoverBackgroundColor: sellChartColors
                         }
@@ -88,9 +88,7 @@ class Main extends Component {
                 event.preventDefault()
                 let amount
                 amount = this.buy_amount.value.toString()
-                console.log("amount:"+amount);
                 amount = window.web3.utils.toWei(amount, 'Ether')
-                console.log("wei-amount:"+amount);
                 this.props.buyTokens(amount)
               }}>
               <div>
@@ -98,7 +96,7 @@ class Main extends Component {
                   Recry Available: {window.web3.utils.fromWei(this.props.recryMaxAvailable, 'Ether')}
                 </span>
                 <span className="float-right text-muted">
-                  Usdc Balance: {window.web3.utils.fromWei(this.props.usdcTokenBalance, 'Ether')}
+                  Eur Balance: {window.web3.utils.fromWei(this.props.eurTokenBalance, 'Ether')}
                 </span>
               </div>
               <div className="input-group mb-4">
@@ -110,8 +108,8 @@ class Main extends Component {
                   required />
                 <div className="input-group-append">
                   <div className="input-group-text">
-                    <img src={usdc} height='32' alt=""/>
-                    &nbsp;&nbsp;&nbsp; Usdc
+                    <img src={eur} height='32' alt=""/>
+                    &nbsp;&nbsp;&nbsp; Eur
                   </div>
                 </div>
               <button type="submit" className="btn btn-buy btn-lg">Buy Recry!</button>
@@ -126,7 +124,7 @@ class Main extends Component {
               }}>
               <div>
                 <span className="float-left text-muted">
-                  Usdc Available: {window.web3.utils.fromWei(this.props.usdcMaxSellAvailable, 'Ether')}
+                  Eur Available: {window.web3.utils.fromWei(this.props.eurMaxSellAvailable, 'Ether')}
                 </span>
                 <span className="float-right text-muted">
                   Recry Balance: {window.web3.utils.fromWei(this.props.recryTokenBalance, 'Ether')}
@@ -196,7 +194,7 @@ class Main extends Component {
                     labels: ["Available", "Sold"],
                     datasets: [
                       {
-                        data: [window.web3.utils.fromWei(this.props.protocolGain,'Ether'), window.web3.utils.fromWei(this.props.usdcMaxSellAvailable,'Ether')],
+                        data: [window.web3.utils.fromWei(this.props.protocolGain,'Ether'), window.web3.utils.fromWei(this.props.eurMaxSellAvailable,'Ether')],
                         backgroundColor: sellChartColors,
                         hoverBackgroundColor: sellChartColors
                       }
@@ -298,8 +296,8 @@ class Main extends Component {
                 required />
               <div className="input-group-append">
                 <div className="input-group-text">
-                  <img src={usdc} height='32' alt=""/>
-                  &nbsp;&nbsp;&nbsp; Usdc
+                  <img src={eur} height='32' alt=""/>
+                  &nbsp;&nbsp;&nbsp; Eur
                 </div>
               </div>
             <button type="submit" className="btn btn-buy btn-lg">Add Protocol Gain!</button>
@@ -326,8 +324,8 @@ class Main extends Component {
                 required />
               <div className="input-group-append">
                 <div className="input-group-text">
-                  <img src={usdc} height='32' alt=""/>
-                  &nbsp;&nbsp;&nbsp; Usdc
+                  <img src={eur} height='32' alt=""/>
+                  &nbsp;&nbsp;&nbsp; Eur
                 </div>
               </div>
             <button type="submit" className="btn btn-buy btn-lg">Change Protocol Gain!</button>
@@ -342,10 +340,10 @@ class Main extends Component {
             }}>
             <div>
               <span className="float-left text-muted">
-                Usdc Available: {window.web3.utils.fromWei(this.props.usdcMaxSellAvailable, 'Ether')}
+                Eur Available: {window.web3.utils.fromWei(this.props.eurMaxSellAvailable, 'Ether')}
               </span>
               <span className="float-right text-muted">
-                Usdc Balance: {window.web3.utils.fromWei(this.props.usdcTokenBalance, 'Ether')}
+                Eur Balance: {window.web3.utils.fromWei(this.props.eurTokenBalance, 'Ether')}
               </span>
             </div>
             <div className="input-group mb-4">
@@ -357,11 +355,11 @@ class Main extends Component {
                 required />
               <div className="input-group-append">
                 <div className="input-group-text">
-                  <img src={usdc} height='32' alt=""/>
-                  &nbsp;&nbsp;&nbsp; Usdc
+                  <img src={eur} height='32' alt=""/>
+                  &nbsp;&nbsp;&nbsp; Eur
                 </div>
               </div>
-            <button type="submit" className="btn btn-sell btn-lg">Withdraw Usdc!</button>
+            <button type="submit" className="btn btn-sell btn-lg">Withdraw Eur!</button>
             </div>
           </form>
           <form className="mb-3" onSubmit={(event) => {

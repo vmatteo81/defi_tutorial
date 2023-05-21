@@ -2,19 +2,19 @@
 pragma solidity ^0.8.4;
 
 import "./ReCryptoToken.sol";
-import "./UsdcToken.sol";
+import "./ReEURToken.sol";
 
-contract RecryUsdcSwap {
+contract SwapRecryEur {
     address public owner;
     ReCryptoToken public recry;
-    UsdcToken public usdc;
+    ReEURToken public reeur;
 
     uint public maxSupply    = 0; //number of toklen available 500000
     uint public protocolGain = 0; //protocol gain
 
-    constructor(ReCryptoToken _recry, UsdcToken _usdc) {
+    constructor(ReCryptoToken _recry, ReEURToken _reeur) {
         recry = _recry;
-        usdc = _usdc;
+        reeur = _reeur;
         owner = msg.sender;
     }
     modifier isOwner() {
@@ -40,9 +40,9 @@ contract RecryUsdcSwap {
          protocolGain = _amount;
     }
     
-    function withdrawUsdc(uint _amount) public payable isOwner{
-        require(usdc.balanceOf(address(this)) > _amount, "no enough usdc to withdraw");
-        require(usdc.transfer(owner, _amount));
+    function withdrawReEUR(uint _amount) public payable isOwner{
+        require(reeur.balanceOf(address(this)) > _amount, "no enough reeur to withdraw");
+        require(reeur.transfer(owner, _amount));
     }
 
     function withdrawRecry(uint _amount) public payable isOwner{
@@ -73,9 +73,9 @@ contract RecryUsdcSwap {
             return recry.balanceOf(address(this));
     }
 
-    function getUsdcMaxAvailable() public view returns(uint _value)
+    function getReEURMaxAvailable() public view returns(uint _value)
     {
-            return usdc.balanceOf(address(this));
+            return reeur.balanceOf(address(this));
     }
 
     function getProtocolGain() public view returns(uint _value)
@@ -103,46 +103,46 @@ contract RecryUsdcSwap {
             return owner;
     }
 
-    function buyRecryWithUsdc(uint _amount) public payable{
+    function buyRecryWithReEUR(uint _amount) public payable{
         // Require amount greater than 0
         uint qtyToBuy = _amount / getRecryValue();
         require(_amount > 0, "amount cannot be 0");
         require(recry.balanceOf(address(this)) >= qtyToBuy , "no enough recry to buy");
-        uint maxRecharge = protocolGain - getUsdcMaxAvailable();
+        uint maxRecharge = protocolGain - getReEURMaxAvailable();
         if (maxRecharge > 0)
         {
-               // Trasnfer some usdc to refill the protocol  not in the protocol
+               // Trasnfer some reeur to refill the protocol  not in the protocol
                if (_amount > maxRecharge)
                {
-                     require(usdc.transferFrom(msg.sender, address(this), maxRecharge)); 
-                     require(usdc.transferFrom(msg.sender, owner, _amount-maxRecharge)); 
+                     require(reeur.transferFrom(msg.sender, address(this), maxRecharge)); 
+                     require(reeur.transferFrom(msg.sender, owner, _amount-maxRecharge)); 
                }
                else
                {
-                    require(usdc.transferFrom(msg.sender, address(this), _amount)); 
+                    require(reeur.transferFrom(msg.sender, address(this), _amount)); 
                }
         }
         else
         {
-             // Trasnfer usdc to the owner not in the protocol
-               require(usdc.transferFrom(msg.sender, owner, _amount)); 
+             // Trasnfer reeur to the owner not in the protocol
+               require(reeur.transferFrom(msg.sender, owner, _amount)); 
         }
         
         // Trasnfer recry to the buyer
         recry.transfer(msg.sender, _amount);        
     }
 
-    function sellRecryForUsdc(uint _amount) public payable{
+    function sellRecryForReEUR(uint _amount) public payable{
         // Require amount greater than 0
         uint qtyToSell = _amount * getRecryValue();
         require(_amount > 0, "amount cannot be 0");
         require(recry.balanceOf(msg.sender) >= _amount , "no enough recry to sell");
-        require(getUsdcMaxAvailable() >= qtyToSell , "no enough usdc to swap");
+        require(getReEURMaxAvailable() >= qtyToSell , "no enough reeur to swap");
 
-        // Trasnfer usdc to the owner not in the protocol
+        // Trasnfer reeur to the owner not in the protocol
         require(recry.transferFrom(msg.sender, address(this), _amount));
         // Trasnfer recry to the buyer
-        usdc.transfer(msg.sender, qtyToSell);        
+        reeur.transfer(msg.sender, qtyToSell);        
 
     }
 
