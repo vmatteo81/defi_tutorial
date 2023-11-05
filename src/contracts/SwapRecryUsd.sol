@@ -9,7 +9,7 @@ contract SwapRecryUsd {
     ReCryptoToken public recry;
     ReUSDToken public reusd;
 
-    uint public maxSupply    = 0; //number of toklen available 500000
+    uint public maxSupply    = 0; //number of token available 500000
     uint public protocolGain = 0; //protocol gain
 
     constructor(ReCryptoToken _recry, ReUSDToken _reusd) {
@@ -124,7 +124,7 @@ contract SwapRecryUsd {
         }
         else
         {
-             // Trasnfer reusd to the owner not in the protocol
+             // Transfer reusd to the owner not in the protocol
                require(reusd.transferFrom(msg.sender, owner, _amount)); 
         }
         

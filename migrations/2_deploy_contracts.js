@@ -2,6 +2,7 @@ const Authority = artifacts.require('Authority')
 const RecryptoToken = artifacts.require('RecryptoToken')
 const ReEURToken = artifacts.require('ReEURToken')
 const SwapRecryEur = artifacts.require('SwapRecryEur')
+const EurUsd = artifacts.require('EurUsd')
 
 function tokens(n) {
   return web3.utils.toWei(n, 'ether');
@@ -20,6 +21,9 @@ module.exports = async function(deployer, network, accounts) {
   await deployer.deploy(RecryptoToken,authority.address)
   const recryToken = await RecryptoToken.deployed()
 
+  //Depoly eurusd change
+  await deployer.deploy(EurUsd)
+  const eurusd = await EurUsd.deployed()
   // Deploy SwapRecryEur
   await deployer.deploy(SwapRecryEur, recryToken.address, reEurToken.address)
   const swapRecryEur = await SwapRecryEur.deployed()
